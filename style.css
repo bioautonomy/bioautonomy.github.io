@@ -1,0 +1,201 @@
+/* Fonts */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 100 600;
+  font-display: swap;
+  src: url('fonts/roboto-mono.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: italic;
+  font-weight: 100 600;
+  font-display: swap;
+  src: url('fonts/roboto-mono-italic.woff2') format('woff2');
+}
+
+/* Generic */
+:root {
+    --bg: #f0f0f0;
+    --fg: #000000;
+    --select: #00000022;
+}
+
+:root:has(#theme:checked) {
+    --bg: #000000;
+    --fg: #f0f0f0;
+    --select: #f0f0f022;
+}
+
+* {
+    font-family: 'Roboto Mono', monospace; 
+    font-size: 0.95rem;
+    letter-spacing: -0.045rem;
+    font-weight: 300;
+    color: var(--fg);
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+@media (max-width: 768px) {
+    * {
+        font-size: 0.9rem;
+        letter-spacing: -0.035rem;
+    }
+}
+
+body {
+    background-color: var(--bg);
+}
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+*::-webkit-scrollbar { 
+    display: none; 
+}
+
+/* Layout */
+total {
+    display: block;
+    max-width: min(48rem, calc(95% - 4rem));
+    margin: auto;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.two {
+    display: grid;
+    gap: 0.95rem;
+    margin-bottom: 0.475rem;
+}
+
+@media (min-width: 768px) {
+    .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+/* Steps: each .step is written text-then-image. Mobile shows them in that
+   order, one column; desktop puts them side by side and mirrors every
+   other step so images zigzag left/right. */
+.steps {
+    display: grid;
+    gap: 0.95rem;
+    margin-bottom: 0.475rem;
+}
+
+.step {
+    display: grid;
+    gap: 0.475rem;
+}
+
+@media (min-width: 768px) {
+    .steps {
+        gap: 20px;
+    }
+
+    .step {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .step:nth-child(even) > .text {
+        order: 2;
+    }
+}
+
+/* Text */
+h1 {
+    font-weight: 500;
+    margin-top: 0.95rem;
+    margin-bottom: 0.475rem;
+}
+
+p {
+    padding-bottom: 0.475rem;
+}
+
+b {
+    font-weight: 400;
+}
+
+li {
+    margin-left: 2rem;
+}
+
+/* Theme Button */
+#theme {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    appearance: none;
+    position: fixed;
+    width: 2.2rem;
+    height: 1.2rem;
+    padding: 0.15rem;
+    border: 1px solid var(--fg);
+    background: var(--bg);
+    cursor: pointer;
+}
+
+#theme::before {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 100%;
+    background: var(--fg);
+    transition: transform 0.2s;
+}
+
+#theme:checked::before {
+    transform: translateX(100%);
+}
+
+#theme:focus-visible {
+    outline: 1px solid var(--fg);
+    outline-offset: 2px;
+}
+
+/* Graph */
+.e2-graph { position: relative; height: 17rem; margin: 1.5rem 0 2.5rem 2.5rem; }
+.e2-graph svg { width: 100%; height: 100%; overflow: visible; }
+.e2-graph svg * { vector-effect: non-scaling-stroke; fill: none; stroke: var(--fg); stroke-width: 2; }
+.e2-graph rect { fill: var(--select); stroke: none; }
+.e2-graph .grid { stroke-width: 1; stroke-opacity: 0.12; }
+.e2-graph .frame { stroke-width: 1; stroke-opacity: 0.35; stroke-dasharray: 2 3; }
+.e2-graph span { position: absolute; right: calc(100% + 0.4rem); transform: translateY(-50%); font-size: 0.75rem; white-space: nowrap; }
+.e2-graph span.x { right: auto; top: calc(100% + 0.3rem); transform: translateX(-50%); }
+.e2-label { margin: -1rem 0 1rem 2.5rem; text-align: center; }
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px black solid;
+    padding-bottom: 0.475rem;
+}
+
+/* Other */
+::selection {
+    background: var(--select);
+}
